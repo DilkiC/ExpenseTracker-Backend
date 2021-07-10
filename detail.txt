@@ -1,0 +1,12 @@
+installation resourses
+-------------------------
+
+express--->Backend framework
+mongoose(mysql)---> DB
+cors--->cross origine policies
+.env--->environmental file(define not shraing keys eg:auth key,port)
+nodemon--->to running the project without server started
+
+
+
+install--->npm i express mongoose cors dotenv
