@@ -47,6 +47,14 @@ router.get("/sumexpenses/:password", async (req, res) => {
     }
   });
 
+  router.get('/oneexchange/:amount',async (req,res)=>{
+    //const id="60dc0e0020aa31f976c5b4c2";
+    //const foundUser = await User.findOne ({ "email" : req.body.email });
+    const exchanges = await Expenses.findOne(req.params);
+    res.send(exchanges);
+    
+})
+
   router.get("/countexpenses/:password", async (req, res) => {
     try {
       const expenses = await Expenses.countDocuments(req.params);
@@ -75,6 +83,34 @@ router.get("/sumexpenses/:password", async (req, res) => {
     } catch {
       res.status(404).send({ error: "expenses not found!" });
     }
+  });
+
+  router.get("/incexpenses/:nic", async (req, res) => {
+    const expenses = await exchange.aggregate([
+      { $match: { type: "Expence" , nic: req.params.nic} },
+      {
+        "$group": {
+          "_id": "$nic",
+          "total": { $sum: "$value" }
+        }
+      }
+    ]);
+     
+    res.send(expenses);
+  });
+
+  router.get("/exexpenses/:nic", async (req, res) => {
+    const expenses = await exchange.aggregate([
+      { $match: { type: "Income" , nic: req.params.nic} },
+      {
+        "$group": {
+          "_id": "$nic",
+          "total": { $sum: "$value" }
+        }
+      }
+    ]);
+     
+    res.send(expenses);
   });
 
   

@@ -18,13 +18,9 @@ router.post("/addUser",async(req,res)=>{
     res.send(data)
 });
 
- router.get("/getOneUser/:password", async(req,res)=>{
-  try{
-    const getOneUser=await userModel.findOne(req.params);
-    res.send({data:getOneUser});
-  }catch{
-    res.status(404).send({error:"user not found"});
-  }
+ router.get("/getOneUser/:nic", async(req,res)=>{
+  const users = await userModel.findOne(req.params);
+  res.send(users);
 });
  
 
